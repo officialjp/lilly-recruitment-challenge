@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Form
 from fastapi.middleware.cors import CORSMiddleware
+import math
 """
 This module defines a FastAPI application for managing a list of medicines.
 It provides endpoints to retrieve all medicines, retrieve a single medicine by name,
@@ -77,7 +78,8 @@ def get_average():
                 count += 1
                 total += med['price']
         average = total/count
-        return {"average": average}
+        factor = 10**2
+        return {"average": math.floor(average * factor) / factor}
     return {"error": "Couldnt fetch average"}
 
 @app.post("/create")

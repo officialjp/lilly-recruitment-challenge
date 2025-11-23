@@ -11,40 +11,60 @@
         Disclaimer: All medicine names and prices used in this application are fictional and do not represent any real medicine(s).
     </div>
     <header>
-        <h1>Medicine Tracker</h1>
+        <div class="header-container" id="header-container">
+            <div class="header-items" id="header-items">
+                <div class="header-badge" id="header-badge">DASHBOARD</div>
+                <h1 class="header-title" id="header-title">Medicine Tracker</h2>
+                <p class="header-description" id="header-description">A dashboard to manage all your medicines!</p>
+            </div>
+        </div>
     </header>
     
-    <main>
-        <h1>Lists</h1>
+    <main class="dashboard-wrapper" id="dashboard-wrapper">
+
         <button onclick="fetchAllMedicines()">Fetch All Medicines</button>
-    
-        <form onsubmit="handleFormSubmit(event)">
-            <label for="search-term">Search by Name:</label>
-            <input type="text" id="search-term" name="q" placeholder="Medicine" required>
-            <button type="submit">Search Products</button>
-        </form>
+        <div class="dashboard-buttons" id="dashboard-buttons">
+        
+            <div>
+                <h3>Search Item</h3>
+                <form onsubmit="handleFormSubmit(event)">
+                    <label for="search-term">Input Name:</label>
+                    <input type="text" id="search-term" name="q" placeholder="Medicine" required>
+                    <button type="submit">Search Products</button>
+                </form>
+            </div>
 
-        <form onsubmit="handleDeleteItem(event)">
-            <label for="delete-term">Delete by Name:</label>
-            <input type="text" id="delete-term" name="q" placeholder="Medicine" required>
-            <button type="submit">Delete Item</button>
-        </form>
+            <div>
+                <h3>Delete Item</h3>
+                <form onsubmit="handleDeleteItem(event)">
+                    <label for="delete-term">Input Name:</label>
+                    <input type="text" id="delete-term" name="q" placeholder="Medicine" required>
+                    <button type="submit">Delete Item</button>
+                </form>
+            </div>
 
-        <form onsubmit="handleCreateItem(event)">
-            <label for="name">Input Name:</label>
-            <input type="text" id="name" name="inputName" placeholder="Medicine" required>
-            <label for="price">Input Price:</label>
-            <input type="number" step="0.01" id="price" name="inputPrice" placeholder="Price" required>
-            <button type="submit">Submit Item</button>
-        </form>
+            <div>
+                <h3>Create Item</h3>
+                <form onsubmit="handleCreateItem(event)">
+                    <label for="name">Input Name:</label>
+                    <input type="text" id="name" name="inputName" placeholder="Medicine" required>
+                    <label for="price">Input Price:</label>
+                    <input type="number" step="0.01" id="price" name="inputPrice" placeholder="Price" required>
+                    <button type="submit">Submit Item</button>
+                </form>
+            </div>
 
-        <form onsubmit="handleUpdateItem(event)">
-            <label for="new_name">Input Name:</label>
-            <input type="text" id="new_name" name="newName" placeholder="Medicine" required>
-            <label for="new_price">Input Price:</label>
-            <input type="number" step="0.01" id="new_price" name="inputPrice" placeholder="Price" required>
-            <button type="submit">Update Item</button>
-        </form>
+            <div>
+                <h3>Update Item</h3>
+            <form onsubmit="handleUpdateItem(event)">
+                <label for="new_name">Input Name:</label>
+                <input type="text" id="new_name" name="newName" placeholder="Medicine" required>
+                <label for="new_price">Input Price:</label>
+                <input type="number" step="0.01" id="new_price" name="inputPrice" placeholder="Price" required>
+                <button type="submit">Update Item</button>
+            </form>
+            </div>
+        </div>
     
         <ul id="medicine-list"></ul>
         <p id="summary-count"></p>

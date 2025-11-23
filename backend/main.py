@@ -60,6 +60,26 @@ def get_single_med(name: str):
                 return med
     return {"error": "Medicine not found"}
 
+@app.get("/average")
+def get_average():
+    """
+    This function reads the data.json file and returns a the average price of all medicine
+    Returns:
+        dict: A dictionary containing the average price
+    """
+    with open('data.json') as meds:
+        data = json.load(meds)
+        total = 0
+        count = 0
+        for med in data["medicines"]:
+            print(med)
+            if med['name'] is not "" and med['price'] is not None:
+                count += 1
+                total += med['price']
+        average = total/count
+        return {"average": average}
+    return {"error": "Couldnt fetch average"}
+
 @app.post("/create")
 def create_med(name: str = Form(...), price: float = Form(...)):
     """

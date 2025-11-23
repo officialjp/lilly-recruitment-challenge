@@ -15,58 +15,58 @@ function handleDeleteItem(event) {
 }
 
 function handleCreateItem(event) {
-  event.preventDefault()
-  const inputName = document.getElementById("name")
+  event.preventDefault();
+  const inputName = document.getElementById("name");
   const name = inputName.value.trim();
-  const inputPrice = document.getElementById("price")
+  const inputPrice = document.getElementById("price");
   const price = inputPrice.value.trim();
 
-  createMedicine(name, price)
+  createMedicine(name, price);
 }
 
 function handleUpdateItem(event) {
-  event.preventDefault()
-  const inputName = document.getElementById("new_name")
+  event.preventDefault();
+  const inputName = document.getElementById("new_name");
   const name = inputName.value.trim();
-  const inputPrice = document.getElementById("new_price")
+  const inputPrice = document.getElementById("new_price");
   const price = inputPrice.value.trim();
 
-  updateMedicine(name, price)
+  updateMedicine(name, price);
 }
 
 async function updateMedicine(name, price) {
   const summaryElement = document.getElementById("summary-count");
-  const listElement = document.getElementById("medicine-list")
+  const listElement = document.getElementById("medicine-list");
   summaryElement.textContent = "";
   listElement.innerHTML = "";
 
-  const formData = new FormData()
-  formData.append('name', name)
-  formData.append('price', price)
-  let url = "http://127.0.0.1:8000/update"
+  const formData = new FormData();
+  formData.append("name", name);
+  formData.append("price", price);
+  let url = "http://127.0.0.1:8000/update";
 
   try {
     const response = await fetch(url, {
-      method: 'POST',
-      body: formData, 
+      method: "POST",
+      body: formData,
     });
 
     if (!response.ok) {
-      throw new Error("Submission failed!")
+      throw new Error("Submission failed!");
     }
 
     const result = await response.json();
-    
-      if (result.error) {
-          summaryElement.textContent = `Update failed: ${result.error}`;
-          return result;
-      }
 
-    summaryElement.textContent = result.message || `Medicine '${name}' updated successfully.`;
-    listElement.innerHTML = ''; 
+    if (result.error) {
+      summaryElement.textContent = `Update failed: ${result.error}`;
+      return result;
+    }
+
+    summaryElement.textContent =
+      result.message || `Medicine '${name}' updated successfully.`;
+    listElement.innerHTML = "";
 
     return result;
-
   } catch (error) {
     console.error("Update Error:", error);
     summaryElement.textContent = `Update failed: ${error.message}`;
@@ -79,72 +79,73 @@ async function deleteMedicine(name) {
   const listElement = document.getElementById("medicine-list");
 
   summaryElement.textContent = "Attempting deletion...";
+  listElement.innerHTML = "";
   const formData = new FormData();
-  formData.append('name', name);
-  
+  formData.append("name", name);
+
   let url = "http://127.0.0.1:8000/delete";
 
   try {
-      const response = await fetch(url, {
-          method: 'DELETE',
-          body: formData,
-      });
+    const response = await fetch(url, {
+      method: "DELETE",
+      body: formData,
+    });
 
-      if (!response.ok) {
-          throw new Error(`Deletion failed with status: ${response.status}`);
-      }
+    if (!response.ok) {
+      throw new Error(`Deletion failed with status: ${response.status}`);
+    }
 
-      const result = await response.json();
-    
-      if (result.error) {
-          summaryElement.textContent = `Deletion failed: ${result.error}`;
-          return result;
-      }
+    const result = await response.json();
 
-      summaryElement.textContent = result.message || `Medicine '${name}' deleted successfully.`;
-      listElement.innerHTML = ''; 
-
+    if (result.error) {
+      summaryElement.textContent = `Deletion failed: ${result.error}`;
       return result;
-      
+    }
+
+    summaryElement.textContent =
+      result.message || `Medicine '${name}' deleted successfully.`;
+    listElement.innerHTML = "";
+
+    return result;
   } catch (error) {
-      console.error("Deletion Error:", error);
-      summaryElement.textContent = `Deletion failed: ${error.message}`;
-      return { error: error.message };
+    console.error("Deletion Error:", error);
+    summaryElement.textContent = `Deletion failed: ${error.message}`;
+    return { error: error.message };
   }
 }
 async function createMedicine(name, price) {
   const summaryElement = document.getElementById("summary-count");
-  const listElement = document.getElementById("medicine-list")
+  const listElement = document.getElementById("medicine-list");
   summaryElement.textContent = "";
   listElement.innerHTML = "";
 
-  const formData = new FormData()
-  formData.append('name', name)
-  formData.append('price', price)
-  let url = "http://127.0.0.1:8000/create"
+  const formData = new FormData();
+  formData.append("name", name);
+  formData.append("price", price);
+  let url = "http://127.0.0.1:8000/create";
 
   try {
     const response = await fetch(url, {
-      method: 'POST',
-      body: formData, 
+      method: "POST",
+      body: formData,
     });
 
     if (!response.ok) {
-      throw new Error("Submission failed!")
+      throw new Error("Submission failed!");
     }
 
     const result = await response.json();
-    
-      if (result.error) {
-          summaryElement.textContent = `Creation failed: ${result.error}`;
-          return result;
-      }
 
-    summaryElement.textContent = result.message || `Medicine '${name}' created successfully.`;
-    listElement.innerHTML = ''; 
+    if (result.error) {
+      summaryElement.textContent = `Creation failed: ${result.error}`;
+      return result;
+    }
+
+    summaryElement.textContent =
+      result.message || `Medicine '${name}' created successfully.`;
+    listElement.innerHTML = "";
 
     return result;
-
   } catch (error) {
     console.error("Creation Error:", error);
     summaryElement.textContent = `Creation failed: ${error.message}`;

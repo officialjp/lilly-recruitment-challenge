@@ -1,3 +1,7 @@
+const API = "http://127.0.0.1:8000/"
+const summaryElement = document.getElementById("summary-count");
+const listElement = document.getElementById("medicine-list");
+
 function handleFormSubmit(event) {
   event.preventDefault();
   const searchTermInput = document.getElementById("search-term");
@@ -35,15 +39,13 @@ function handleUpdateItem(event) {
 }
 
 async function updateMedicine(name, price) {
-  const summaryElement = document.getElementById("summary-count");
-  const listElement = document.getElementById("medicine-list");
   summaryElement.textContent = "";
   listElement.innerHTML = "";
 
   const formData = new FormData();
   formData.append("name", name);
   formData.append("price", price);
-  let url = "http://127.0.0.1:8000/update";
+  let url = API + "update";
 
   try {
     const response = await fetch(url, {
@@ -75,15 +77,13 @@ async function updateMedicine(name, price) {
 }
 
 async function deleteMedicine(name) {
-  const summaryElement = document.getElementById("summary-count");
-  const listElement = document.getElementById("medicine-list");
-
   summaryElement.textContent = "Attempting deletion...";
   listElement.innerHTML = "";
+  
   const formData = new FormData();
   formData.append("name", name);
 
-  let url = "http://127.0.0.1:8000/delete";
+  let url = API + "delete";
 
   try {
     const response = await fetch(url, {
@@ -114,15 +114,14 @@ async function deleteMedicine(name) {
   }
 }
 async function createMedicine(name, price) {
-  const summaryElement = document.getElementById("summary-count");
-  const listElement = document.getElementById("medicine-list");
   summaryElement.textContent = "";
   listElement.innerHTML = "";
 
   const formData = new FormData();
   formData.append("name", name);
   formData.append("price", price);
-  let url = "http://127.0.0.1:8000/create";
+
+  let url = API + "create";
 
   try {
     const response = await fetch(url, {
@@ -154,12 +153,10 @@ async function createMedicine(name, price) {
 }
 
 async function fetchMedicine(searchTerm = "") {
-  const listElement = document.getElementById("medicine-list");
-  const summaryElement = document.getElementById("summary-count");
   listElement.innerHTML = "<li>Fetching data... please wait.</li>";
   summaryElement.textContent = "";
 
-  let url = "http://127.0.0.1:8000/medicines";
+  let url = API + "medicines"
 
   if (searchTerm) {
     url = `${url}/${encodeURIComponent(searchTerm)}`;
@@ -198,13 +195,12 @@ async function fetchMedicine(searchTerm = "") {
 }
 
 async function fetchAllMedicines() {
-  const listElement = document.getElementById("medicine-list");
-  const summaryElement = document.getElementById("summary-count");
-
   listElement.innerHTML = "<li>Fetching data... please wait.</li>";
   summaryElement.textContent = "";
+
+  let url = API + "medicines"
   try {
-    const response = await fetch("http://127.0.0.1:8000/medicines");
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error(`HTTP error!`);

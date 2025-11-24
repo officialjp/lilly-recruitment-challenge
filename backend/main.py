@@ -74,7 +74,7 @@ def get_average():
         count = 0
         for med in data["medicines"]:
             print(med)
-            if med['name'] is not "" and med['price'] is not None:
+            if med['name'] != "" and med['price'] is not None:
                 count += 1
                 total += med['price']
         average = total/count
